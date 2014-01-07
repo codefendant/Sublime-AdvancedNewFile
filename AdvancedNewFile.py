@@ -2,7 +2,6 @@ import sublime
 import sys
 
 VERSION = int(sublime.version())
-print("hey hey hey")
 reloader = "advanced_new_file.reloader"
 
 if VERSION > 3000:
