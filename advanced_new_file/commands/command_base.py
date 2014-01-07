@@ -301,7 +301,17 @@ class AdvancedNewFileBase(object):
             self.create_file(creation_path)
 
     def create_file(self, name):
-        open(name, "a").close()
+        f = open(name, "a")
+
+        if self.view is not None:
+            print(self.view.sel())
+            for region in self.view.sel():
+                if region.begin() != region.end():
+                    selected_text = self.view.substr(region)
+                    f.write(selected_text)
+
+
+        f.close()
         if self.settings.get(FILE_PERMISSIONS_SETTING, "") != "":
             file_permissions = self.settings.get(FILE_PERMISSIONS_SETTING, "")
             os.chmod(name, int(file_permissions, 8))
